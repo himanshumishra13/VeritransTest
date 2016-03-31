@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>List</title>
+</head>
+<body>
+<div id='List'></div>
+
+<script>
+	var xhr=new XMLHttpRequest();
+	var url="https://veritranstest.herokuapp.com/rest/Veritrans/list";
+	xhr.onreadystatechange=function(){
+		if(xhr.readyState==4 && xhr.status==200){
+			myPrintFunction(xhr.responseText)
+			}
+		}
+        xhr.open("GET",url,true);
+        xhr.send();
+
+	function myPrintFunction(response){
+	 	var arr=JSON.parse(response);
+		var i;
+		var out="<table border=\"1\">";
+// 		out+="<tr><td>ID"+
+// 			 "</td><td>Name"+
+// 			 "</td><td>Image"+
+// 			 "</td><td>Description"+
+// 			 "</td><td>Branding"+
+// 			 "</td><td>Rating"+
+// 			 "</td><td>Setup_fee"+
+// 			 "</td><td>Transaction_Fee"+
+// 			 "</td><td>How To URL"+
+// 			 "</td><td>Currencies</td></tr>";
+			 
+		for(i=0;i<arr.length;i++)
+		{
+			var imagesrc=arr[i].image;
+			out+="<tr><td>"+
+		      	arr[i].id+
+			"</td><td>"+
+		      	arr[i].name+
+			"</td><td>"+
+		      	'<img src="'+imagesrc+'" alt="image" style="width:50px;height:50px;">'+
+			"</td><td>"+
+		      	arr[i].description+
+			"</td><td>"+
+		      	arr[i].branding+
+			"</td><td>"+
+		      	arr[i].rating+
+			"</td><td>"+
+				arr[i].setup_fee+
+			"</td><td>"+
+				arr[i].transaction_fee+
+			"</td><td>"+
+				arr[i].how_to_url+
+			"</td><td>"+
+				arr[i].currencies+
+			"</td><td>"+
+		      	"</td></tr>";
+		     
+       		}
+		out+="</table>";
+		document.getElementById('List').innerHTML = out;	
+}	
+</script>
+</body>
+</html>
